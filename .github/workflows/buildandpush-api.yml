@@ -1,7 +1,7 @@
 on:
     push:
         branches: 
-            - "master"
+            - "build-api-only"
 concurrency:
     group: ${{ github.head_ref || github.run_id }}
     cancel-in-progress: true
