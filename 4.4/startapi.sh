@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Custom shim to start the nominatim Apache server based on config values from the ECS TaskDefinition
-# $DB_IP must be injected as environment variable
+# $DB_IP and $DB_PSWD must be injected as environment variables
 
 mkdir -p /data
 
 REPLICATION_URL="http://download.geofabrik.de/north-america-updates/"
-DB_DSN="pgsql:host=$DB_IP;port=6432;user=nominatim;password=password1234;dbname=nominatim"
+DB_DSN="pgsql:host=$DB_IP;port=6432;user=nominatim;password=$DB_PSWD;dbname=nominatim"
 
 [ ! -f /data/local.php ] && cp /app/local-template.php /data/local.php
 

@@ -144,9 +144,6 @@ FROM scratch
 
 COPY --from=build / /
 
-# Please override this
-ENV NOMINATIM_PASSWORD=obliquely_sl@nted
-
 ENV PROJECT_DIR=/nominatim
 
 ARG USER_AGENT
