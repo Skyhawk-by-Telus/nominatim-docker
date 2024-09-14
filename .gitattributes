@@ -1,0 +1,13 @@
+# All files are checked into the repo with LF for line termination
+* text=auto
+
+# By default, files will be checked out into the working tree with "native" line termination.
+# Unfortunately, "native" is LF in Git Bash, but CRLF in Windows (and probably Eclipse, though
+# I haven't verified that). That inconsistency is bound to cause somebody headaches as it already
+# has me (Sean) when I applied Eclipse patch files with Git Bash and got some very strange effects.
+# The best approach seems to be to force LF on all text files in the working tree, except those
+# that we believe are Windows batch and cmd files - they need to be CRLF.
+
+* eol=lf
+*.bat eol=crlf
+*.cmd eol=crlf

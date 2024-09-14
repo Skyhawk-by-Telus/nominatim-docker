@@ -88,7 +88,10 @@ RUN true \
     && cd build \
     && cmake ../Nominatim-$NOMINATIM_VERSION \
     && make -j`nproc` \
-    && make install
+    && make install \
+    && cd .. \
+    && mkdir -p /nominatim \
+    && cp -r Nominatim-$NOMINATIM_VERSION/lib-php/website /nominatim
 
 RUN true \
     # Remove development and unused packages.
@@ -117,7 +120,6 @@ RUN true \
         /var/lib/apt/lists/* \
     # Remove nominatim source and build directories
     && rm /app/*.tar.bz2 \
-    && rm -rf /app/build \
     && rm -rf /app/Nominatim-$NOMINATIM_VERSION
 
 # Apache configuration
@@ -132,6 +134,10 @@ COPY init.sh /app/init.sh
 COPY start.sh /app/start.sh
 COPY startapache.sh /app/startapache.sh
 COPY startpostgres.sh /app/startpostgres.sh
+
+# The following line is a custom addition
+COPY startapi.sh /app/startapi.sh
+COPY local-template.php /app/local-template.php
 
 # Collapse image to single layer.
 FROM scratch
@@ -153,7 +159,6 @@ EXPOSE 8080
 
 COPY conf.d/env $PROJECT_DIR/.env
 
-# The following lines are custom additions
-COPY startapi.sh /app/startapi.sh
+# The following line is a custom addition
 ENTRYPOINT [ "bash", "/app/startapi.sh" ]
 
