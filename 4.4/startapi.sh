@@ -6,7 +6,7 @@
 mkdir -p /data
 
 REPLICATION_URL="http://download.geofabrik.de/north-america-updates/"
-DB_DSN="pgsql:host=$DB_IP;port=6432;user=nominatim;password=$DB_PSWD;dbname=nominatim"
+DB_DSN="pgsql:host=$DB_IP;port=6432;user=nominatim;password=$NOMINATIM_PASSWORD;dbname=nominatim"
 
 [ ! -f /data/local.php ] && cp /app/local-template.php /data/local.php
 
