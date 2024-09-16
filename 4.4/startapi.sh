@@ -17,5 +17,8 @@ sed -i \
 
 cat /data/local.php
 
+cd /nominatim
+NOMINATIM_DATABASE_DSN="$DB_DSN" nominatim refresh --website
+
 bash /app/startapache.sh
 
