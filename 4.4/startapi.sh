@@ -5,8 +5,8 @@
 
 mkdir -p /data
 
-REPLICATION_URL="http://download.geofabrik.de/north-america-updates/"
-DB_DSN="pgsql:host=$DB_IP;port=6432;user=nominatim;password=$NOMINATIM_PASSWORD;dbname=nominatim"
+export REPLICATION_URL="http://download.geofabrik.de/north-america-updates/"
+export DB_DSN="pgsql:host=$DB_IP;port=6432;user=nominatim;password=$NOMINATIM_PASSWORD;dbname=nominatim"
 
 [ ! -f /data/local.php ] && cp /app/local-template.php /data/local.php
 
@@ -18,7 +18,9 @@ sed -i \
 cat /data/local.php
 
 cd /nominatim
-NOMINATIM_DATABASE_DSN="$DB_DSN" nominatim refresh --website
+export NOMINATIM_DATABASE_DSN="$DB_DSN"
+nominatim refresh --website
 
-bash /app/startapache.sh
+chmod +x /app/startapache.sh
+/app/startapache.sh
 
